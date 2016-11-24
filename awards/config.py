@@ -8,3 +8,4 @@ class AwardsConfig(AppConfig):
     verbose_name = _("Awards")
 
     def ready(self):
+        pass

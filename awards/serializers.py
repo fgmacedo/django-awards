@@ -2,13 +2,12 @@
 
 from rest_framework import serializers
 
-from ..api.fields import DateTimeFieldWihTZ
 from .models import BadgeAward
 
 
 class BadgesSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
-    awarded_on = DateTimeFieldWihTZ(read_only=True)
+    awarded_on = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = BadgeAward

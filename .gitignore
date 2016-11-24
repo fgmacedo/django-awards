@@ -1,6 +1,7 @@
 *.py[cod]
 __pycache__
 .cache
+.coverage*
 
 # C extensions
 *.so
