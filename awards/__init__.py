@@ -1,6 +1,7 @@
-from .internals import badges as cache
+from .internals import badges
+from .base import Badge, BadgeDetail, BadgeAwarded  # NOQA
 
-default_app_config = 'awards.config.AwardsConfig'
+default_app_config = 'awards.apps.AwardsConfig'
 
 
-possibly_award_badge = cache.possibly_award_badge
+possibly_award_badge = badges.possibly_award_badge
