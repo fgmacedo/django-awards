@@ -39,10 +39,6 @@ class BadgeAward(models.Model):
             self.__class__.__name__,
             self.name, self.level, self.user)
 
-    def save(self, *args, **kwargs):
-        super(BadgeAward, self).save(*args, **kwargs)
-        self.get_user_points(self.user_id)
-
     @property
     def badge(self):
         return self
