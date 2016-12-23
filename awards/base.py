@@ -53,7 +53,7 @@ class Badge(object):
             }
             AsyncBadgeAward.apply_async((self, state), **extra)
             return
-        self.actually_possibly_award(**state)
+        return self.actually_possibly_award(**state)
 
     def actually_possibly_award(self, **state):
         """
@@ -89,6 +89,7 @@ class Badge(object):
             badge.user = state['user']
         badge_awarded.send(sender=self, badge_award=badge)
         notify_awarded(badge)
+        return badge
 
     def freeze(self, **state):
         return state
