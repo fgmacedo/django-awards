@@ -34,6 +34,26 @@ def badges_for_user(user):
         .order_by("-awarded_on")
 
 
+@register.assignment_tag
+def all_badges_with_awarded_flag_for(user):
+    user_badges = badges_for_user(user)
+    badges_awarded = {(b.slug, b.level): b for b in user_badges}
+    all_badges = []
+    for slug, c in badges._registry.items():
+        for level in range(len(c.levels)):
+            badge = BadgeAward(
+                user=user,
+                slug=slug,
+                level=level
+            )
+            key = (slug, level)
+            badge.awarded = key in badges_awarded
+            if badge.awarded:
+                badge.awarded_on = badges_awarded[key].awarded_on
+            all_badges.append(badge)
+    return all_badges
+
+
 class MostAwardedBadge(object):
 
     def __init__(self, detail, count, slug=None, users_count=None):

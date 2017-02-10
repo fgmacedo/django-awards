@@ -7,8 +7,10 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.templatetags.staticfiles import static
-from django.contrib.auth import get_user_model
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.text import force_text
+
+from . import settings as app_settings
 
 
 @python_2_unicode_compatible
@@ -37,10 +39,6 @@ class BadgeAward(models.Model):
             self.__class__.__name__,
             self.name, self.level, self.user)
 
-    def save(self, *args, **kwargs):
-        super(BadgeAward, self).save(*args, **kwargs)
-        self.get_user_points(self.user_id)
-
     @property
     def badge(self):
         return self
@@ -52,11 +50,11 @@ class BadgeAward(models.Model):
 
     @property
     def name(self):
-        return unicode(self._badge.levels[self.level].name)
+        return force_text(self._badge.levels[self.level].name)
 
     @property
     def description(self):
-        return unicode(self._badge.levels[self.level].description)
+        return force_text(self._badge.levels[self.level].description)
 
     @property
     def info(self):
@@ -66,7 +64,7 @@ class BadgeAward(models.Model):
     def image_url(self):
         slug = getattr(self.info, 'slug', self.slug)
         return static(
-            'icons/awards/{slug}.png'.format(slug=slug.replace('-', '_')))
+            app_settings.IMAGE_URL.format(slug=slug.replace('-', '_')))
 
     @property
     def progress(self):

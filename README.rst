@@ -26,6 +26,10 @@ Then use it in a project::
 
     import awards
 
+Add a `badges.py` file into the app that you want to define badges to.
+
+
+
 Features
 --------
 
