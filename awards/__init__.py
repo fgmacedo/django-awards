@@ -1,6 +1,6 @@
 from .internals import badges as cache
 
-__version__ = '0.1.1'
+__version__ = '0.3.1'
 
 default_app_config = 'awards.config.AwardsConfig'
 
